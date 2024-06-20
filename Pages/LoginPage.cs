@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
+using TwentyLesson.WebDriver;
 namespace TwentyLesson.Pages
 {
     internal class LoginPage : BasePage
@@ -7,9 +8,9 @@ namespace TwentyLesson.Pages
         const string login = "standard_user";
         const string password = "secret_sauce";
 
-        private static IWebElement loginField = wait.Until(ExpectedConditions.ElementExists(By.XPath("//*[@id='user-name']")));
-        private static IWebElement passworField = wait.Until(ExpectedConditions.ElementExists(By.XPath("//*[@id='password']")));
-        private static IWebElement buttonLogin = wait.Until(ExpectedConditions.ElementExists(By.XPath("//*[@id='login-button']")));
+        private static IWebElement loginField => Driver.WaitDriver(Driver.GetDriver(), 10).Until(ExpectedConditions.ElementExists(By.XPath("//*[@id='user-name']")));
+        private static IWebElement passworField => Driver.WaitDriver(Driver.GetDriver(), 10).Until(ExpectedConditions.ElementExists(By.XPath("//*[@id='password']")));
+        private static IWebElement buttonLogin => Driver.WaitDriver(Driver.GetDriver(), 10).Until(ExpectedConditions.ElementExists(By.XPath("//*[@id='login-button']")));
 
         public static void Login()
         {

@@ -1,17 +1,18 @@
 ﻿using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
 using System.Globalization;
+using TwentyLesson.WebDriver;
 
 namespace TwentyLesson.Pages
 {
     internal class ManePage : BasePage
     {
-        private static IWebElement sortContainer = wait.Until(ExpectedConditions.ElementExists(By.XPath("//*[@id='header_container']/div[2]/div/span/select")));
-        private static IWebElement buttonShoppingCart = wait.Until(ExpectedConditions.ElementExists(By.XPath("//*[@id='shopping_cart_container']/a")));
+        private static IWebElement sortContainer => Driver.WaitDriver(Driver.GetDriver(), 10).Until(ExpectedConditions.ElementExists(By.XPath("//*[@id='header_container']/div[2]/div/span/select")));
+        private static IWebElement buttonShoppingCart => Driver.WaitDriver(Driver.GetDriver(), 10).Until(ExpectedConditions.ElementExists(By.XPath("//*[@id='shopping_cart_container']/a")));
 
-        private static List<IWebElement> _AllAddButtons = wait.Until(driver => driver.FindElements(By.XPath("//*[@class='btn btn_primary btn_small btn_inventory ']"))).ToList();
-        private static List<IWebElement> _itemNames = wait.Until(driver => driver.FindElements(By.XPath("//*[@class='inventory_item_name ']"))).ToList();
-        private static List<IWebElement> _itemCosts = wait.Until(driver => driver.FindElements(By.XPath("//*[@class='inventory_item_price']"))).ToList();
+        private static List<IWebElement> _AllAddButtons => Driver.WaitDriver(Driver.GetDriver(), 10).Until(driver => driver.FindElements(By.XPath("//*[@class='btn btn_primary btn_small btn_inventory ']"))).ToList();
+        private static List<IWebElement> _itemNames => Driver.WaitDriver(Driver.GetDriver(), 10).Until(driver => driver.FindElements(By.XPath("//*[@class='inventory_item_name ']"))).ToList();
+        private static List<IWebElement> _itemCosts => Driver.WaitDriver(Driver.GetDriver(), 10).Until(driver => driver.FindElements(By.XPath("//*[@class='inventory_item_price']"))).ToList();
 
 
         public static bool AddProductToCart()
@@ -34,7 +35,7 @@ namespace TwentyLesson.Pages
                 var urlButtonRemoveProduct = CartPage.removeButtons[0];
                 urlButtonRemoveProduct.Click();
 
-                var allElementsFromCartConteents = wait.Until(driver => driver.FindElements(By.XPath("//*[@class='cart_item']"))).ToList();
+                var allElementsFromCartConteents = Driver.WaitDriver(Driver.GetDriver(), 10).Until(driver => driver.FindElements(By.XPath("//*[@class='cart_item']"))).ToList();
          
                 if (allElementsFromCartConteents.Count != 0)
                 {
@@ -64,7 +65,7 @@ namespace TwentyLesson.Pages
 
             sortContainerElements[containerItemNumber].Click();
 
-            var itemNames = wait.Until(driver => driver.FindElements(By.XPath("//*[@class='inventory_item_name ']"))).ToList();
+            var itemNames = Driver.WaitDriver(Driver.GetDriver(), 10).Until(driver => driver.FindElements(By.XPath("//*[@class='inventory_item_name ']"))).ToList();
             var namesSortCheck = itemNames.Select(q => q.Text).ToList();
 
             if (!sortNames.SequenceEqual(namesSortCheck))
@@ -95,7 +96,7 @@ namespace TwentyLesson.Pages
 
             sortContainerElements[containerItemNumber].Click();
 
-            var itemCosts = wait.Until(driver => driver.FindElements(By.XPath("//*[@class='inventory_item_price']"))).ToList();
+            var itemCosts = Driver.WaitDriver(Driver.GetDriver(), 10).Until(driver => driver.FindElements(By.XPath("//*[@class='inventory_item_price']"))).ToList();
             var sortCheck = itemCosts.Select(q => Convert.ToDecimal(q.Text.Replace("$", ""), CultureInfo.InvariantCulture)).ToList();
 
             if (!sortCosts.SequenceEqual(sortCheck))

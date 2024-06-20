@@ -32,6 +32,7 @@ namespace TwentyLesson.WebDriver
         {
             _driver.Quit();
             _driver = null;
+            _wait = null;
         }
     }
 }
