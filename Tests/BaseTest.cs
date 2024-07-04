@@ -6,6 +6,7 @@ namespace TwentyLesson.Tests
 {
     internal class BaseTest
     {
+     
         [SetUp]
         public void Setup()
         {

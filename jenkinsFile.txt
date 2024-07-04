@@ -1,0 +1,5 @@
+pipeline { agent any stages { stage('Checkout')
+{ steps { // Шаг для проверки кода из репозитория Git git 'https://github.com/Kimgim007/TwentyLesson/' } } stage('Restore and Build')
+{ steps { // Восстановление NuGet пакетов и сборка проекта bat 'dotnet restore' bat 'dotnet build' } } stage('Run Tests')
+{ steps { // Запуск MSTest тестов bat 'dotnet test --logger:trx' } } } 
+post { always { // Публикация результатов тестов publishMSTest testResultsFile: '**/*.trx' } } }
